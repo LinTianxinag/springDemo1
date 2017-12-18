@@ -31,7 +31,7 @@ public class MainController {
         map.put("childhood",8);
         map.put("serviceWord",indexService.Index());
         logger.info("------mainController的输出日志info");
-        logger.info("------git 使用测试-------");
+        logger.info("------git 使用测试");
         logger.error("------mainController的输出日志error");
         return "index";
     }
