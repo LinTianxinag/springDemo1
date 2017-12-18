@@ -1,0 +1,11 @@
+<html>
+<body>
+<h2>Hello World!Spring</h2>
+<h3>name:$!name</h3>
+<p>已经过了童年  $numeric.sub($!age,$!childhood)年</p>
+<p>service说：$!serviceWord</p>
+
+<br>
+<div style="text-align: center"><a href="/login?name=lin">登录</div>
+</body>
+</html>

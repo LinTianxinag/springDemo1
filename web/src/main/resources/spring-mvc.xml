@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <!-- 配置包扫描器 -->
+    <context:component-scan base-package="com.MyDemo"/>
+    <!-- 配置注解驱动 -->
+    <mvc:annotation-driven/>
+    <!-- 视图解析器 因为用了velocity，默认的注释掉-->
+    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+        <!--<property name="prefix" value="/views/"/>-->
+        <!--<property name="suffix" value=".jsp"/>-->
+    <!--</bean>-->
+    <bean id="velocityConfig"
+          class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+        <property name="resourceLoaderPath" value="/views/" />
+        <property name="configLocation" value="classpath:velocity.properties" />
+    </bean>
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver">
+        <property name="cache" value="true" />
+        <property name="prefix" value="" />
+        <property name="suffix" value=".vm" />
+        <property name="contentType">
+            <value>text/html;charset=UTF-8</value>
+        </property>
+        <property name="dateToolAttribute" value="date" />
+        <property name="numberToolAttribute" value="number" />
+        <property name="exposeSpringMacroHelpers" value="true" />
+        <property name="exposeRequestAttributes" value="true" />
+        <!-- 转发覆盖 because of an existing model object of the same name -->
+        <property name="allowSessionOverride" value="true" />
+        <property name="allowRequestOverride" value="true" />
+        <!-- 转发覆盖 end -->
+        <property name="exposeSessionAttributes" value="true" />
+        <property name="requestContextAttribute" value="rc" />
+        <property name="layoutUrl" value="layout/default.vm" />
+        <property name="toolboxConfigLocation" value="vm-tools.xml" />
+        <property name="viewClass"
+                  value="com.MyDemo.Util.Velocity.VelocityLayoutToolboxView" />
+    </bean>
+
+    <!-- 拦截器 -->
+    <mvc:interceptors>
+        <bean class="com.MyDemo.web.Interceptor.LoginAuthInterceptor" />
+    </mvc:interceptors>
+
+
+
+</beans>
