@@ -3,3 +3,5 @@
 /.idea/workspace.xml
 README.md
 *.iml
+target
+/target

@@ -2,6 +2,7 @@ package com.MyDemo.web;
 
 
 
+import com.MyDemo.bean.User;
 import com.MyDemo.web.Interface.LoginAuthAnnotaion;
 import com.MyDemo.web.service.IndexService;
 import org.apache.logging.log4j.LogManager;
@@ -25,11 +26,11 @@ public class MainController {
     private IndexService indexService;
 
     @RequestMapping(value = "/index")
-    public String home(ModelMap map){
+    public String home(ModelMap map, User user){
         map.put("name","lin");
         map.put("age",18);
         map.put("childhood",8);
-        map.put("serviceWord",indexService.Index());
+        map.put("serviceWord",indexService.Index(user));
         logger.info("------mainController的输出日志info");
         logger.info("------git 使用测试   ");
         logger.error("------mainController的输出日志error");

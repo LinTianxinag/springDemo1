@@ -1,7 +1,9 @@
 package com.MyDemo.mapper;
 
 import com.MyDemo.bean.User;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface UserMapper {
     int deleteByPrimaryKey(Long id);
 

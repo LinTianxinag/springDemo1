@@ -1,6 +1,9 @@
 package com.MyDemo.web.service;
 
+
+import com.MyDemo.bean.User;
 import com.MyDemo.mapper.UserMapper;
+import com.MyDemo.web.Interface.DataCheck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +17,13 @@ import org.springframework.stereotype.Service;
 public class IndexService {
     @Autowired
     UserMapper userMapper;
-    public String Index(){
-        return "hello";
+
+    @DataCheck
+    public String Index(User user){
+        if(user!=null&&user.getId()!=null)
+        userMapper.insert(user);
+        return "add a new user";
     }
+
+
 }

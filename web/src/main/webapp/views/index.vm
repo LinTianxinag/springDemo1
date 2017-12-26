@@ -7,5 +7,17 @@
 
 <br>
 <div style="text-align: center"><a href="/login?name=lin">登录</div>
+<form action="/index" >
+    <input name="name" value="林天祥">
+    <input type="submit" value="submit">
+</form>
+<input type="button" value="submitAjax" onclick="submitIndex()">
+
+
 </body>
+<script>
+    function submitIndex() {
+
+    }
+</script>
 </html>
