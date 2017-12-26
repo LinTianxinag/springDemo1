@@ -36,6 +36,11 @@ public class MainController {
         logger.error("------mainController的输出日志error");
         return "index";
     }
+    @RequestMapping(value = "/jmsQueueMessage")
+    public String jmsQueueMessage(ModelMap map, String queueMessage){
+        map.put("message",indexService.sendJmsMessage(queueMessage));
+        return "index";
+    }
 
     @RequestMapping(value = "/login")
     @LoginAuthAnnotaion

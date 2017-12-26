@@ -6,18 +6,19 @@
 <p>service说：$!serviceWord</p>
 
 <br>
-<div style="text-align: center"><a href="/login?name=lin">登录</div>
+
 <form action="/index" >
     <input name="name" value="林天祥">
     <input type="submit" value="submit">
 </form>
-<input type="button" value="submitAjax" onclick="submitIndex()">
+<input type="button" value="submitAjax" >
 
+<form action="/jmsQueueMessage" >
+    <input name="queueMessage" >
+    <input type="text" placeholder="结果" value="$!message">
+    <input type="submit" value="submitMessage">
+</form>
+<div style="text-align: center"><a href="/login?name=lin">登录</div>
 
 </body>
-<script>
-    function submitIndex() {
-
-    }
-</script>
 </html>
