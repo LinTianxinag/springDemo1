@@ -18,6 +18,34 @@
     <input type="text" placeholder="结果" value="$!message">
     <input type="submit" value="submitMessage">
 </form>
+<form action="/shiroAsk" >
+    <input name="name" value="zhang">
+    <input name="password" value="123">
+    <input type="submit" value="submitShiro">
+</form>
+<form action="/redisStorage" method="post">
+    <input type="text" name="key" placeholder="键">
+    <input type="text" name="value" placeholder="值">
+    <input type="text" name="expire" value="5" placeholder="有效时间">
+    <input type="submit" value="submitMessage">
+</form>
+<form action="/mongoDBData" method="post">
+    <input type="submit" value="submitMessage">
+</form>
+<div style="background-color: rosybrown">
+    <label>mongoDB 请求的数据---------------</label>
+    <table>
+        #foreach($!item in $!mongoDBData)
+            <tr>
+                <td>$!item.id</td>
+                <td>$!item.mobile</td>
+            </tr>
+        #end
+    </table>
+
+
+</div>
+
 <div style="text-align: center"><a href="/login?name=lin">登录</div>
 
 </body>

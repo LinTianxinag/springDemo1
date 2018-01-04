@@ -3,6 +3,7 @@ package com.MyDemo.web;
 
 
 import com.MyDemo.bean.User;
+import com.MyDemo.model.Query;
 import com.MyDemo.web.Interface.LoginAuthAnnotaion;
 import com.MyDemo.web.service.IndexService;
 import org.apache.logging.log4j.LogManager;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * desciper::介绍方法名
@@ -36,11 +38,68 @@ public class MainController {
         logger.error("------mainController的输出日志error");
         return "index";
     }
+
+    /**
+     * 消息队列
+     * @param map
+     * @param queueMessage
+     * @return
+     */
     @RequestMapping(value = "/jmsQueueMessage")
     public String jmsQueueMessage(ModelMap map, String queueMessage){
         map.put("message",indexService.sendJmsMessage(queueMessage));
         return "index";
     }
+      /**
+     * 消息队列
+     * @param map
+     * @param query
+     * @return
+     */
+    @RequestMapping(value = "/mongoDBData")
+    public String mongoDBData(ModelMap map, Query query){
+        map.put("mongoDBData",indexService.mongoDBData(query));
+        return "index";
+    }
+
+      /**
+     * 消息队列
+     * @param map
+     * @param query
+     * @return
+     */
+    @RequestMapping(value = "/shiroAsk")
+    @ResponseBody
+    public Object shiroAsk(ModelMap map, Query query){
+        return indexService.shiroAsk(query);
+    }
+
+
+        /**
+     * redis缓存使用
+     * @param map
+     * @param query
+     * @return
+     */
+    @RequestMapping(value = "/redisStorage")
+    @ResponseBody
+    public String redisStorage(ModelMap map, Query query){
+        new Thread(new Runnable(){
+            public void run() {
+                System.out.println("Override runnable run!");
+            }
+        }){
+            public void run() {
+                //super.run();
+                System.out.println("Override Thread run!");
+                indexService.redisStorage(query);
+            }
+        }.start();
+
+        return "ok,redis operation finished";
+    }
+
+
 
     @RequestMapping(value = "/login")
     @LoginAuthAnnotaion

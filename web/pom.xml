@@ -23,12 +23,19 @@
         <slf4j.version>1.7.9</slf4j.version>
         <log4j.version>2.1</log4j.version>
         <activemq.version>5.7.0</activemq.version>
+        <redis.version>1.6.0.RELEASE</redis.version>
+        <jedis.version>2.7.3</jedis.version>
+        <mongodb.version>1.9.4.RELEASE</mongodb.version>
+        <mongodbDriver.version>3.2.1</mongodbDriver.version>
+        <junit.version>4.12</junit.version>
+        <shiro.version>1.2.4</shiro.version>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>3.8.1</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
     <!--spring相关包-->
@@ -53,11 +60,12 @@
         <artifactId>spring-tx</artifactId>
         <version>${spring.version}</version>
     </dependency>
-    <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-test</artifactId>
-        <version>${spring.version}</version>
-    </dependency>
+        <!--spring test 使用-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
         <!-- 支持jsp ============================================-->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -191,6 +199,36 @@
             <artifactId>spring-jms</artifactId>
             <version>${spring.version}</version>
         </dependency>
+        <!--redis 缓存-->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+            <version>${redis.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>${jedis.version}</version>
+            <!--<scope>compile</scope>-->
+        </dependency>
+        <!--mongodb 相关-->
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>${mongodbDriver.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-mongodb</artifactId>
+            <version>${mongodb.version}</version>
+        </dependency>
+        <!--shiro 使用-->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-core</artifactId>
+            <version>${shiro.version}</version>
+        </dependency>
+
     </dependencies>
     <build>
         <finalName>web</finalName>
