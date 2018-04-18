@@ -12,7 +12,7 @@
         //判断当前浏览器是否支持WebSocket
         if('WebSocket' in window){
 //            websocket = new WebSocket("ws://localhost:8070/DataMigration/webSocketServer");
-            websocket = new WebSocket('ws://' + window.location.host + '/webSocketServer');
+            websocket = new WebSocket('ws://' + window.location.host + 'web/webSocketServer');
         }
         else{
             alert('Not support websocket')
