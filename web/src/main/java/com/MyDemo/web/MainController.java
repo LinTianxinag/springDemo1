@@ -38,6 +38,10 @@ public class MainController {
         logger.error("------mainController的输出日志error");
         return "index";
     }
+    @RequestMapping(value = "/chatRoom")
+    public String chatRoom(ModelMap map, User user){
+        return "chatRoom";
+    }
 
     /**
      * 消息队列

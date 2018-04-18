@@ -29,6 +29,8 @@
         <mongodbDriver.version>3.2.1</mongodbDriver.version>
         <junit.version>4.12</junit.version>
         <shiro.version>1.2.4</shiro.version>
+        <javax-websocket-api.version>1.1</javax-websocket-api.version>
+        <jsoup>1.11.2</jsoup>
     </properties>
 
     <dependencies>
@@ -227,6 +229,30 @@
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-core</artifactId>
             <version>${shiro.version}</version>
+        </dependency>
+        <!--websocket 使用，说是需要跟spring-MVC的版本保持一致，否则会报错,用的是spring自带的websocket 功能-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-websocket</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.websocket</groupId>
+            <artifactId>javax.websocket-api</artifactId>
+            <version>${javax-websocket-api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-messaging</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <!--这里添加jsoup需要的一些包-->
+        <dependency>
+        <!-- jsoup HTML parser library @ https://jsoup.org/ -->
+        <groupId>org.jsoup</groupId>
+        <artifactId>jsoup</artifactId>
+        <version>${jsoup}</version>
         </dependency>
 
     </dependencies>

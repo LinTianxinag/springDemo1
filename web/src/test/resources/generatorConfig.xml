@@ -23,8 +23,8 @@
             <property name="suppressAllComments" value="true"/>
         </commentGenerator>
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://192.168.2.129:3306/demo4_pd?characterEncoding=utf8"
-                        userId="root" password="pmcc*123">
+                        connectionURL="jdbc:mysql://116.62.236.103:3306/dnjr_pd?characterEncoding=utf8"
+                        userId="root" password="Xiangyun2013">
         </jdbcConnection>
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>

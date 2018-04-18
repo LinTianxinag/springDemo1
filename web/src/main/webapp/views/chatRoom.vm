@@ -1,0 +1,186 @@
+<html>
+<hean>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>WebSocket/SockJS Echo Sample (Adapted from Tomcat's echo
+        sample)</title>
+
+    <script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
+
+    <script type="text/javascript">
+        var websocket = null;
+
+        //判断当前浏览器是否支持WebSocket
+        if('WebSocket' in window){
+//            websocket = new WebSocket("ws://localhost:8070/DataMigration/webSocketServer");
+            websocket = new WebSocket('ws://' + window.location.host + '/webSocketServer');
+        }
+        else{
+            alert('Not support websocket')
+        }
+
+
+        //连接发生错误的回调方法
+        websocket.onerror = function(){
+            setMessageInnerHTML("error");
+        };
+
+        //连接成功建立的回调方法
+        websocket.onopen = function(event){
+            setMessageInnerHTML("open");
+        }
+
+        //接收到消息的回调方法
+        websocket.onmessage = function(){
+            setMessageInnerHTML(event.data);
+        }
+
+        //连接关闭的回调方法
+        websocket.onclose = function(){
+            setMessageInnerHTML("close");
+        }
+
+        //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+        window.onbeforeunload = function(){
+            websocket.close();
+        }
+
+        //将消息显示在网页上
+        function setMessageInnerHTML(innerHTML){
+            document.getElementById('message').innerHTML += innerHTML + '<br/>';
+        }
+
+        //关闭连接
+        function closeWebSocket(){
+            websocket.close();
+        }
+
+        //发送消息
+        function send(){
+            var message = document.getElementById('text').value;
+            websocket.send(message);
+        }
+
+    </script>
+    </head>
+    <body>
+    Welcome<br/>
+    <input id="text" type="text" />
+    <button onclick="send()">Send</button>
+    <button onclick="closeWebSocket()">Close</button>
+    <div id="message"></div>
+    </body>
+##<style type="text/css">
+##    input#chat {
+##        width: 410px
+##    }
+##
+##    #console-container {
+##        width: 400px;
+##    }
+##
+##    #console {
+##        border: 1px solid #CCCCCC;
+##        border-right-color: #999999;
+##        border-bottom-color: #999999;
+##        height: 170px;
+##        overflow-y: scroll;
+##        padding: 5px;
+##        width: 100%;
+##    }
+##
+##    #console p {
+##        padding: 0;
+##        margin: 0;
+##    }
+##</style>
+##<script>
+##    var Chat = {};
+##
+##    Chat.socket = null;
+##
+##    Chat.connect = (function(host) {
+##        if ('WebSocket' in window) {
+##            Chat.socket = new WebSocket(host);
+##        } else if ('MozWebSocket' in window) {
+##            Chat.socket = new MozWebSocket(host);
+##        } else {
+##            Console.log('Error: 浏览器不支持WebSocket');
+##            return;
+##        }
+##
+##        Chat.socket.onopen = function () {
+##            Console.log('Info: WebSocket链接已打开');
+##            document.getElementById('chat').onkeydown = function(event) {
+##                if (event.keyCode == 13) {
+##                    Chat.sendMessage();
+##                }
+##            };
+##        };
+##
+##        Chat.socket.onclose = function () {
+##            document.getElementById('chat').onkeydown = null;
+##            Console.log('Info: webcocket关闭.');
+##        };
+##
+##        Chat.socket.onmessage = function (message) {
+##            Console.log(message.data);
+##        };
+##    });
+##
+##    Chat.initialize = function() {
+##        if (window.location.protocol == 'http:') {
+##            Chat.connect('ws://' + window.location.host + '/gtweb/chat');
+##        } else {
+##            Chat.connect('wss://' + window.location.host + '/gtweb/chat');
+##        }
+##    };
+##
+##    Chat.sendMessage = (function() {
+##        var message = document.getElementById('chat').value;
+##        if (message != '') {
+##            Chat.socket.send(message);
+##            document.getElementById('chat').value = '';
+##        }
+##    });
+##
+##    var Console = {};
+##
+##    Console.log = (function(message) {
+##        var console = document.getElementById('console');
+##        var p = document.createElement('p');
+##        p.style.wordWrap = 'break-word';
+##        p.innerHTML = message;
+##        console.appendChild(p);
+##        while (console.childNodes.length > 25) {
+##            console.removeChild(console.firstChild);
+##        }
+##        console.scrollTop = console.scrollHeight;
+##    });
+##
+##    Chat.initialize();
+##
+##    document.addEventListener("DOMContentLoaded", function() {
+##        // Remove elements with "noscript" class - <noscript> is not allowed in XHTML
+##        var noscripts = document.getElementsByClassName("noscript");
+##        for (var i = 0; i < noscripts.length; i++) {
+##            noscripts[i].parentNode.removeChild(noscripts[i]);
+##        }
+##    }, false);
+##
+##
+##</script>
+##<body>
+##<div class="noscript"><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websockets rely on Javascript being enabled. Please enable
+##    Javascript and reload this page!</h2></div>
+##<div>
+##    <p>
+##        <input type="text" placeholder="输入文字，回车发送" id="chat" /><br>
+##        注意：输入  消息to用户名   发送给指定用户   比如：  你好to用户1<br>
+##        输入   消息     直接发送给全体用户
+##    </p>
+##    <div id="console-container">
+##        <div id="console"/>
+##    </div>
+##</div>
+##</body>
+</html>

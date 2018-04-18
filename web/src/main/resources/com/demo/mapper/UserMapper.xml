@@ -1,58 +1,223 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.MyDemo.mapper.UserMapper" >
-  <resultMap id="BaseResultMap" type="com.MyDemo.bean.User" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.MyDemo.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.MyDemo.bean.User">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="mobile" jdbcType="CHAR" property="mobile" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="state" jdbcType="TINYINT" property="state" />
+    <result column="agent" jdbcType="BIGINT" property="agent" />
+    <result column="idcard" jdbcType="VARCHAR" property="idcard" />
+    <result column="realname" jdbcType="VARCHAR" property="realname" />
+    <result column="regdate" jdbcType="TIMESTAMP" property="regdate" />
+    <result column="refer" jdbcType="BIGINT" property="refer" />
+    <result column="route" jdbcType="INTEGER" property="route" />
+    <result column="degree" jdbcType="TINYINT" property="degree" />
+    <result column="degree_expire" jdbcType="TIMESTAMP" property="degreeExpire" />
+    <result column="channel" jdbcType="VARCHAR" property="channel" />
+    <result column="subchannel" jdbcType="VARCHAR" property="subchannel" />
+    <result column="com" jdbcType="VARCHAR" property="com" />
+    <result column="virtual" jdbcType="TINYINT" property="virtual" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    id, name
+  <sql id="Base_Column_List">
+    id, mobile, email, state, agent, idcard, realname, regdate, refer, route, degree, 
+    degree_expire, channel, subchannel, com, virtual
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from user
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from user
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.MyDemo.bean.User" >
-    insert into user (id, name)
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.MyDemo.bean.User">
+    insert into user (id, mobile, email, 
+      state, agent, idcard, 
+      realname, regdate, refer, 
+      route, degree, degree_expire, 
+      channel, subchannel, com, 
+      virtual)
+    values (#{id,jdbcType=BIGINT}, #{mobile,jdbcType=CHAR}, #{email,jdbcType=VARCHAR}, 
+      #{state,jdbcType=TINYINT}, #{agent,jdbcType=BIGINT}, #{idcard,jdbcType=VARCHAR}, 
+      #{realname,jdbcType=VARCHAR}, #{regdate,jdbcType=TIMESTAMP}, #{refer,jdbcType=BIGINT}, 
+      #{route,jdbcType=INTEGER}, #{degree,jdbcType=TINYINT}, #{degreeExpire,jdbcType=TIMESTAMP}, 
+      #{channel,jdbcType=VARCHAR}, #{subchannel,jdbcType=VARCHAR}, #{com,jdbcType=VARCHAR}, 
+      #{virtual,jdbcType=TINYINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.MyDemo.bean.User" >
+  <insert id="insertSelective" parameterType="com.MyDemo.bean.User">
     insert into user
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="name != null" >
-        name,
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="agent != null">
+        agent,
+      </if>
+      <if test="idcard != null">
+        idcard,
+      </if>
+      <if test="realname != null">
+        realname,
+      </if>
+      <if test="regdate != null">
+        regdate,
+      </if>
+      <if test="refer != null">
+        refer,
+      </if>
+      <if test="route != null">
+        route,
+      </if>
+      <if test="degree != null">
+        degree,
+      </if>
+      <if test="degreeExpire != null">
+        degree_expire,
+      </if>
+      <if test="channel != null">
+        channel,
+      </if>
+      <if test="subchannel != null">
+        subchannel,
+      </if>
+      <if test="com != null">
+        com,
+      </if>
+      <if test="virtual != null">
+        virtual,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
+      <if test="mobile != null">
+        #{mobile,jdbcType=CHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=TINYINT},
+      </if>
+      <if test="agent != null">
+        #{agent,jdbcType=BIGINT},
+      </if>
+      <if test="idcard != null">
+        #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null">
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="regdate != null">
+        #{regdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="refer != null">
+        #{refer,jdbcType=BIGINT},
+      </if>
+      <if test="route != null">
+        #{route,jdbcType=INTEGER},
+      </if>
+      <if test="degree != null">
+        #{degree,jdbcType=TINYINT},
+      </if>
+      <if test="degreeExpire != null">
+        #{degreeExpire,jdbcType=TIMESTAMP},
+      </if>
+      <if test="channel != null">
+        #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="subchannel != null">
+        #{subchannel,jdbcType=VARCHAR},
+      </if>
+      <if test="com != null">
+        #{com,jdbcType=VARCHAR},
+      </if>
+      <if test="virtual != null">
+        #{virtual,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.MyDemo.bean.User" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.MyDemo.bean.User">
     update user
-    <set >
-      <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
+    <set>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=CHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=TINYINT},
+      </if>
+      <if test="agent != null">
+        agent = #{agent,jdbcType=BIGINT},
+      </if>
+      <if test="idcard != null">
+        idcard = #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null">
+        realname = #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="regdate != null">
+        regdate = #{regdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="refer != null">
+        refer = #{refer,jdbcType=BIGINT},
+      </if>
+      <if test="route != null">
+        route = #{route,jdbcType=INTEGER},
+      </if>
+      <if test="degree != null">
+        degree = #{degree,jdbcType=TINYINT},
+      </if>
+      <if test="degreeExpire != null">
+        degree_expire = #{degreeExpire,jdbcType=TIMESTAMP},
+      </if>
+      <if test="channel != null">
+        channel = #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="subchannel != null">
+        subchannel = #{subchannel,jdbcType=VARCHAR},
+      </if>
+      <if test="com != null">
+        com = #{com,jdbcType=VARCHAR},
+      </if>
+      <if test="virtual != null">
+        virtual = #{virtual,jdbcType=TINYINT},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.MyDemo.bean.User" >
+  <update id="updateByPrimaryKey" parameterType="com.MyDemo.bean.User">
     update user
-    set name = #{name,jdbcType=VARCHAR}
+    set mobile = #{mobile,jdbcType=CHAR},
+      email = #{email,jdbcType=VARCHAR},
+      state = #{state,jdbcType=TINYINT},
+      agent = #{agent,jdbcType=BIGINT},
+      idcard = #{idcard,jdbcType=VARCHAR},
+      realname = #{realname,jdbcType=VARCHAR},
+      regdate = #{regdate,jdbcType=TIMESTAMP},
+      refer = #{refer,jdbcType=BIGINT},
+      route = #{route,jdbcType=INTEGER},
+      degree = #{degree,jdbcType=TINYINT},
+      degree_expire = #{degreeExpire,jdbcType=TIMESTAMP},
+      channel = #{channel,jdbcType=VARCHAR},
+      subchannel = #{subchannel,jdbcType=VARCHAR},
+      com = #{com,jdbcType=VARCHAR},
+      virtual = #{virtual,jdbcType=TINYINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>
