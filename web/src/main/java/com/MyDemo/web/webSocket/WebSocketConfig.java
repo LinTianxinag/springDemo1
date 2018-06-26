@@ -9,19 +9,19 @@ import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
 
-@Configuration
-@EnableWebMvc
-@EnableWebSocket
-public class WebSocketConfig implements  WebSocketConfigurer{
-
-	@Override
-    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(myHandler(), "/webSocketServer");
-    }
-
-    @Bean
-    public WebSocketHandler myHandler() {
-      
-    	return new SystemWebSocketHandler();
-    }
-}
+//@Configuration
+//@EnableWebMvc
+//@EnableWebSocket
+//public class WebSocketConfig implements  WebSocketConfigurer{
+//
+//	@Override
+//    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+//        registry.addHandler(myHandler(), "/webSocketServer");
+//    }
+//
+//    @Bean
+//    public WebSocketHandler myHandler() {
+//
+//    	return new SystemWebSocketHandler();
+//    }
+//}

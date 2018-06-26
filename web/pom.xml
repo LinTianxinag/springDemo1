@@ -230,7 +230,7 @@
             <artifactId>shiro-core</artifactId>
             <version>${shiro.version}</version>
         </dependency>
-        <!--websocket 使用，说是需要跟spring-MVC的版本保持一致，否则会报错,用的是spring自带的websocket 功能-->
+        <!--websocket  使用，说是需要跟spring-MVC的版本保持一致，否则会报错,用的是spring自带的websocket 功能-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-websocket</artifactId>
