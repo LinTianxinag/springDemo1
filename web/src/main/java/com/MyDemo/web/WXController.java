@@ -1,6 +1,8 @@
 package com.MyDemo.web;
 
 import com.MyDemo.bean.User;
+import com.MyDemo.service.WxCustomService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,9 @@ import java.util.Arrays;
  */
 @Controller
 public class WXController {
+
+    @Autowired
+    WxCustomService wxCustomService;
 
     @RequestMapping(value = "/wx")
     @ResponseBody
@@ -41,4 +46,14 @@ public class WXController {
         }
         return signature!=null?signature.toUpperCase().equals(tmpStr.toUpperCase()):false;
     }
+    @RequestMapping(value = "/wxCustomService")
+    @ResponseBody
+    public Object wxCustomService(String signature, String timestamp, String nonce, String echostr){
+        if(signature == null || timestamp == null || nonce == null){
+            return "empty";
+        }
+        return wxCustomService.wxCustomDeal(signature, timestamp, nonce, echostr);
+    }
+
+
 }

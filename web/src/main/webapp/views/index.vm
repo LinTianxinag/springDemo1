@@ -32,6 +32,9 @@
 <form action="/mongoDBData" method="post">
     <input type="submit" value="submitMessage">
 </form>
+<form action="/wxCustomService" method="post">
+    <input type="submit" value="submitWx">
+</form>
 <div style="background-color: rosybrown">
     <label>mongoDB 请求的数据---------------</label>
     <table>
