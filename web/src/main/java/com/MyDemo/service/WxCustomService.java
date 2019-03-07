@@ -40,7 +40,8 @@ public class WxCustomService {
             md = MessageDigest.getInstance("SHA-1");
             // 将三个参数字符串拼接成一个字符串进行sha1加密
             byte[] digest = md.digest(content.toString().getBytes());
-            tmpStr = new String(digest);
+            //            tmpStr = new String(digest);
+            tmpStr = byteToStr(digest);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
