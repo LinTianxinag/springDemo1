@@ -16,13 +16,15 @@ public class WxCustomService {
     static final Logger logger = LogManager.getLogger(WxCustomService.class);
 
     public Object wxCustomDeal(String signature, String timestamp, String nonce, String echostr){
-        if (checkSigature(signature, timestamp, nonce, echostr)){
-            logger.info("true ,check for wx");
-            return echostr;
-        }else{
-            logger.info("false,check for wx");
-            return "";
-        }
+        return  "SUCCESS";
+
+//        if (checkSigature(signature, timestamp, nonce, echostr)){
+//            logger.info("true ,check for wx");
+//            return echostr;
+//        }else{
+//            logger.info("false,check for wx");
+//            return "";
+//        }
 //        return checkSigatureout(signature, timestamp, nonce, echostr);
     }
 

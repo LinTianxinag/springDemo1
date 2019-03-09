@@ -213,21 +213,24 @@ public class IndexService {
     public void redisStorage(Query query){
         RedisUtil.set(query.getKey(),query.getValue());
         RedisUtil.expire(query.getKey(),query.getExpire());
-        String getValue=null;
-        while (true){
-            try {
-                Thread.sleep(1000L);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            getValue=RedisUtil.get(query.getKey());
-            if(getValue!=null){
-                System.out.println("还存在:"+getValue);
-            }else{
-                System.out.println("过期");
-                break;
-            }
-        }
+//        String getValue=null;
+//        int i =0;
+//        while (i < 300){
+//
+//            try {
+//                Thread.sleep(1000L);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            getValue=RedisUtil.get(query.getKey());
+//            if(getValue!=null){
+//                System.out.println("还存在:"+getValue);
+//            }else{
+//                System.out.println("过期");
+//                break;
+//            }
+//            i++;
+//        }
     }
 
 //java8 新的东西的集合测试和使用

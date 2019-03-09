@@ -88,18 +88,18 @@ public class MainController {
     @RequestMapping(value = "/redisStorage")
     @ResponseBody
     public String redisStorage(ModelMap map, Query query){
-        new Thread(new Runnable(){
-            public void run() {
-                System.out.println("Override runnable run!");
-            }
-        }){
-            public void run() {
-                //super.run();
-                System.out.println("Override Thread run!");
-                indexService.redisStorage(query);
-            }
-        }.start();
-
+//        new Thread(new Runnable(){
+//            public void run() {
+//                System.out.println("Override runnable run!");
+//            }
+//        }){
+//            public void run() {
+//                //super.run();
+//                System.out.println("Override Thread run!");
+//                indexService.redisStorage(query);
+//            }
+//        }.start();
+        indexService.redisStorage(query);
         return "ok,redis operation finished";
     }
 
