@@ -95,6 +95,30 @@ public class WxCustomService {
 //        return checkSigatureout(signature, timestamp, nonce, echostr);
     }
 
+    /**
+     * 在开启消息推送的时候，会把客户消息发送到自己的服务器
+     * 微信会发送消息来验证这个服务器是否有效，需要用到下面的验证
+     * 如果成功，返回原字符串，失败，随便返回，那么无法添加你的服务器为微信的服务器
+     * @param request
+     * @param response
+     * @param signature
+     * @param timestamp
+     * @param nonce
+     * @param echostr
+     * @return
+     */
+    public Object wxCustomDeal_ForCheck(HttpServletRequest request,
+                               HttpServletResponse response, String signature, String timestamp, String nonce, String echostr){
+
+        if (checkSigature(signature, timestamp, nonce, echostr)){
+            logger.info("true ,check for wx");
+            return echostr;
+        }else{
+            logger.info("false,check for wx");
+            return "";
+        }
+    }
+
     public boolean checkSigature(String signature, String timestamp, String nonce, String echostr){
         String token = "Xiaolin2013";
         String[] strs=new String[] {token,timestamp,nonce};
