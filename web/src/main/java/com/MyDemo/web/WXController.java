@@ -8,6 +8,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -48,12 +50,21 @@ public class WXController {
     }
     @RequestMapping(value = "/wxCustomService")
     @ResponseBody
-    public Object wxCustomService(String signature, String timestamp, String nonce, String echostr){
+    public Object wxCustomServicePost(HttpServletRequest request,
+                                      HttpServletResponse response, String signature, String timestamp, String nonce, String echostr){
         if(signature == null || timestamp == null || nonce == null){
             return "empty";
         }
-        return wxCustomService.wxCustomDeal(signature, timestamp, nonce, echostr);
+        return wxCustomService.wxCustomDeal(request,response, signature, timestamp, nonce, echostr);
     }
+
+//    @RequestMapping(value = "/wxCustomService")
+//    public Object wxCustomServiceGet(String signature, String timestamp, String nonce, String echostr){
+//        if(signature == null || timestamp == null || nonce == null){
+//            return "empty";
+//        }
+//        return wxCustomService.wxCustomDeal(signature, timestamp, nonce, echostr);
+//    }
 
 
 }

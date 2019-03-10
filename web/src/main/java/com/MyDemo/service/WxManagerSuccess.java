@@ -2,6 +2,8 @@ package com.MyDemo.service;
 
 import com.MyDemo.Util.RedisUtil;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -9,19 +11,25 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Calendar;
-import java.util.Date;
 
 @Service
 public class WxManagerSuccess {
+    static final Logger logger = LogManager.getLogger(WxManagerSuccess.class);
+
     private static Calendar cal = Calendar.getInstance();
     private static final String APPID = "wxe64c8ab684d32b63";
     private static final String APPSECRET = "5ae5091484c016ba274ab8d96d9b285c";
+    private static final String tokenName = "access_token_wx";
+    private String getValue = null;
+//    {
+//        System.out.println("-------the wxServer start, get token right now---------");
+//        logger.info("-------the wxServer start, get token right now---------");
+//        accessToken ();
+//    }
 
     public static String getAccessToken() throws Exception {
         String accessTokenUrl = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="
                 + APPID + "&secret=" + APPSECRET;
-        System.out.println("URL for getting accessToken accessTokenUrl=" + accessTokenUrl);
-
         URL url = new URL(accessTokenUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
@@ -48,15 +56,30 @@ public class WxManagerSuccess {
 
     }
 
-    //    获取accessToken 并保存到redis当中。每间隔90分钟请求一次，请求得到的token是2h有效时间
-    @Scheduled(cron = "0 */1 * * * ?")
+    //    获取accessToken 并保存到redis当中。每间隔15分钟检查一次，请求得到的token是2h有效时间
+//    剩余半个小时就重新获取
+//    @Scheduled(fixedRate = 60*1000)
+    @Scheduled(cron = "0 */15 * * * ?")
     public void accessToken () {
-        System.out.println("check the token ------------");
-        cal = Calendar.getInstance();
-        System.out.println(cal.getTime());
+        getValue = RedisUtil.get(tokenName);
+        Long ttl =0l;
+        if (getValue != null){
+            ttl = RedisUtil.ttl(tokenName);
+            if (ttl > 30l){
+                logger.info("token time left:"+ttl);
+                return;
+            }
+        }
+        try {
+            getValue = getAccessToken();
+            RedisUtil.set("access_token_wx", getValue);
+            RedisUtil.expire("access_token_wx",2*60*60);
+            WxCustomService.access_token_wx=getValue;//将值放入类的volatile 修饰的变量中
+            logger.info("token reset --------------------");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-
-//        RedisUtil.set("accessToken_token", "12");
 
     }
 

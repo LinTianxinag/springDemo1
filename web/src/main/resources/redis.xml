@@ -14,10 +14,15 @@
 		<property name="testOnBorrow" value="true" />
 	</bean>
 	<bean id="jedisShardInfo" class="redis.clients.jedis.JedisShardInfo">
-		<constructor-arg index="0" value="${redis.host}" />
-		<constructor-arg index="1" value="${redis.port}" type="int" />
-		<!--<constructor-arg index="2" value="${redis.timeout}" />-->
+		<constructor-arg name="host" value="${redis.uri}" />
+		<!--<constructor-arg index="0" value="${redis.host}" />-->
+		<!--<constructor-arg index="1" value="${redis.port}" type="int" />-->
+		<!--<constructor-arg index="2" value="${redis.password}" />-->
 		<!--<property name="password" value="${redis.password}"/>-->
+		<!--<property name="maxActive" value="${redis.maxActive}" />-->
+		<!--<property name="defaultdb" value="${redis.defaultdb}" />-->
+		<!--<property name="timeout" value="${redis.timeout}" />-->
+		<!--<property name="maxWait" value="${redis.maxWait}" />-->
 		<!--<property name="db" value="${redis.defaultdb}" />-->
 
 	</bean>
