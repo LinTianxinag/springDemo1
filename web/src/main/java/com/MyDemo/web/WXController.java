@@ -1,17 +1,21 @@
 package com.MyDemo.web;
 
+import com.MyDemo.Util.ResultUtil;
 import com.MyDemo.bean.User;
 import com.MyDemo.service.WxCustomService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Date;
 import java.util.Arrays;
 
 /**
@@ -56,6 +60,21 @@ public class WXController {
             return "empty";
         }
         return wxCustomService.wxCustomDeal(request,response, signature, timestamp, nonce, echostr);
+    }
+    @RequestMapping(value = "/wxUserAdd")
+    @ResponseBody
+    public Object wxUserAdd(HttpServletRequest request,
+                            HttpServletResponse response, String name, String mobile,@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")Date date ){
+        if(name == null || mobile == null){
+            return new ResultUtil().Add("errcode",1).Add("msg","empty value").toJSON();
+        }
+        return wxCustomService.wxUserAdd(request,response, name, mobile, date);
+    }
+    @RequestMapping(value = "/wxUserFind")
+    @ResponseBody
+    public Object wxUserFind(HttpServletRequest request,
+                                      HttpServletResponse response, User user){
+        return wxCustomService.wxUserFind(request,response, user);
     }
 
 //    @RequestMapping(value = "/wxCustomService")

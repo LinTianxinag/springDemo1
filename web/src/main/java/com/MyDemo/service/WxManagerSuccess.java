@@ -21,6 +21,8 @@ public class WxManagerSuccess {
     private static final String APPSECRET = "5ae5091484c016ba274ab8d96d9b285c";
     private static final String tokenName = "access_token_wx";
     private String getValue = null;
+//    本来想一开始就进行请求的，结果这里的比spring的初始化完全要早，jedis的bean还没有初始化完成
+//    不过几分钟后第二次调用的时候已经可以用了，先不用这个
 //    {
 //        System.out.println("-------the wxServer start, get token right now---------");
 //        logger.info("-------the wxServer start, get token right now---------");

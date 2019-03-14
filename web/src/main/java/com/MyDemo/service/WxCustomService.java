@@ -1,9 +1,14 @@
 package com.MyDemo.service;
 
 import com.MyDemo.Util.RedisUtil;
+import com.MyDemo.Util.ResultUtil;
+import com.MyDemo.bean.User;
+import com.MyDemo.mapper.UserMapper;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.ServletInputStream;
@@ -15,6 +20,7 @@ import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -27,6 +33,9 @@ public class WxCustomService {
     private static final String wx_url = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=";
     public static volatile String access_token_wx;//这个值暂时先不用吧
     public static  String access_token;//
+
+    @Autowired
+    UserMapper userMapper;
 
     public Object wxCustomDeal(HttpServletRequest request,
                                HttpServletResponse response, String signature, String timestamp, String nonce, String echostr){
@@ -95,10 +104,33 @@ public class WxCustomService {
 //        return checkSigatureout(signature, timestamp, nonce, echostr);
     }
 
+
+    public Object wxUserAdd(HttpServletRequest request,
+                                        HttpServletResponse response,String name, String mobile, Date date){
+        User user = new User();
+        user.setId(Math.round(Math.random() * 1000000));
+        user.setRealname(name);
+        user.setMobile(mobile);
+        user.setRegdate(date);
+        userMapper.insert(user);
+        return new ResultUtil().Add("errcode",0).Add("msg","add ok").toJSON();
+
+    }
+
+    public Object wxUserFind(HttpServletRequest request,
+                                        HttpServletResponse response, User user){
+
+        return userMapper.selectByNameMobile(user);
+
+    }
     /**
      * 在开启消息推送的时候，会把客户消息发送到自己的服务器
      * 微信会发送消息来验证这个服务器是否有效，需要用到下面的验证
      * 如果成功，返回原字符串，失败，随便返回，那么无法添加你的服务器为微信的服务器
+     * 1.原来的接口已经改成接受消息了
+     * 2.好像网上说有个get ，post，如果两个仅仅controller 的 method 不同，
+     * 是不是就可以一起在了，
+     *
      * @param request
      * @param response
      * @param signature
