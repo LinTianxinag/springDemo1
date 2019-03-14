@@ -22,6 +22,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * this service is usef for wx service
@@ -119,8 +120,12 @@ public class WxCustomService {
 
     public Object wxUserFind(HttpServletRequest request,
                                         HttpServletResponse response, User user){
-
-        return userMapper.selectByNameMobile(user);
+//        Map<String, Object> map  = new HashMap<>();
+        JSONObject map = new JSONObject();
+        map.put("result",userMapper.selectByNameMobile(user));
+        map.put("errcode",0);
+        map.put("msg","find ok");
+        return map;
 
     }
     /**
